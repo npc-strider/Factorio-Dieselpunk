@@ -26,26 +26,19 @@ for _, entities in pairs(entities) do
 			fluid_box =
 			{
 				production_type = "input",
-				pipe_picture = assembler2pipepictures(),
+				pipe_picture = assembler3pipepictures(),
 				pipe_covers = pipecoverspictures(),
 				base_area = 5,
 				base_level = -1,
 				filter = "fuel-gas",
-				pipe_connections = {{ type="input", position = {-0.5, -1.5}}}
+				pipe_connections = {{ type="input", position = {-0.5, -math.abs(entity.selection_box[1][2])-0.5}}},
+				secondary_draw_orders = { north = -1 }
 			}
 		}
 	if entity.fluid_boxes == nil then
 		entity.fluid_boxes = {}
+	-- else
+		-- entity.fluid_boxes.off_when_no_fluid_recipe = false
 	end
-	entity.fluid_boxes[#entity.fluid_boxes+1] =
-		{
-			production_type = "output",
-			-- pipe_covers = pipecoverspictures(), --TODO: ADD NULL PIPE COVER PICTURES
-			base_area = 10^-5,
-			base_level = 0,
-			-- filter = "water", --TODO: ADD NULL FILTER WITH NULL IMAGE. try the filter = "none" first
-			pipe_connections = {{ type="output", position = {0, entity.selection_box[2][2]}}}
-		}
-	entity.fluid_boxes.off_when_no_fluid_recipe = false
 	data:extend({entity})
 end
